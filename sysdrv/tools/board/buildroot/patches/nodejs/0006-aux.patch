@@ -1,0 +1,20 @@
+--- a/src/node_main.cc
++++ b/src/node_main.cc
+@@ -78,7 +78,7 @@
+ #else
+ // UNIX
+ #ifdef __linux__
+-#include <sys/auxv.h>
++// #include <sys/auxv.h>
+ #endif  // __linux__
+ #if defined(__POSIX__) && defined(NODE_SHARED_MODE)
+ #include <signal.h>
+@@ -107,7 +107,7 @@
+ #endif
+ 
+ #if defined(__linux__)
+-  node::per_process::linux_at_secure = getauxval(AT_SECURE);
++  // node::per_process::linux_at_secure = getauxval(AT_SECURE);
+ #endif
+   // Disable stdio buffering, it interacts poorly with printf()
+   // calls elsewhere in the program (e.g., any logging from V8.)

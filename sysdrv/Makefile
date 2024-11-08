@@ -320,6 +320,7 @@ LIBFFI_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches/libffi
 HEIMDAL_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches
 GDB_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches/gdb
 LXDIALOG_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches
+NODEJS_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches/nodejs
 
 export SYSDRV_DIR_OUT_PC
 export SYSDRV_DIR_OUT_BOARD
@@ -613,6 +614,8 @@ buildroot_create:
 	cp ${MPV_PATCH_PATH}/0002-change-j1.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/mpv/
 	cp ${LIBFFI_PATCH_PATH}/0004-Forward-declare-open_temp_exec_file-764.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/libffi/
 	cp ${GDB_PATCH_PATH}/0001-disable-source-highlight.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/gdb/
+	cp ${NODEJS_PATCH_PATH}/0005-stdarg.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/nodejs/
+	cp ${NODEJS_PATCH_PATH}/0006-aux.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/nodejs/
 	(cd $(BUILDROOT_DIR)/$(BUILDROOT_VER) && patch -Np1 < ${HEIMDAL_PATCH_PATH}/heimdal.patch)
 	(cd $(BUILDROOT_DIR)/$(BUILDROOT_VER) && patch -Np1 < ${LXDIALOG_PATCH_PATH}/lxdialog.patch)
 
@@ -630,6 +633,8 @@ buildroot: prepare
 		cp ${MPV_PATCH_PATH}/0002-change-j1.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/mpv/ ;\
 		cp ${LIBFFI_PATCH_PATH}/0004-Forward-declare-open_temp_exec_file-764.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/libffi/ ;\
 		cp ${GDB_PATCH_PATH}/0001-disable-source-highlight.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/gdb/ ;\
+		cp ${NODEJS_PATCH_PATH}/0005-stdarg.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/nodejs/ ;\
+		cp ${NODEJS_PATCH_PATH}/0006-aux.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/nodejs/ ;\
 		(cd $(BUILDROOT_DIR)/$(BUILDROOT_VER) && patch -Np1 < ${HEIMDAL_PATCH_PATH}/heimdal.patch) ;\
 		(cd $(BUILDROOT_DIR)/$(BUILDROOT_VER) && patch -Np1 < ${LXDIALOG_PATCH_PATH}/lxdialog.patch) ;\
 	);
