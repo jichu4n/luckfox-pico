@@ -1,0 +1,34 @@
+From: Bartosz Bilas @ 2023-08-11  9:34 UTC (permalink / raw)
+  To: buildroot; +Cc: Bartosz Bilas
+
+It's being found from the host's source-highlight library
+which results in the following build errors:
+
+../../gdb/source-cache.c:37:10: fatal error: srchilite/sourcehighlight.h: No such file or directory
+   37 | #include <srchilite/sourcehighlight.h>
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[4]: *** [Makefile:1645: source-cache.o] Error 1
+make[4]: *** Waiting for unfinished jobs....
+
+Signed-off-by: Bartosz Bilas <b.bilas@grinn-global.com>
+---
+ package/gdb/gdb.mk | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/package/gdb/gdb.mk b/package/gdb/gdb.mk
+index 4b9c5c6b70..cee7b37bcd 100644
+--- a/package/gdb/gdb.mk
++++ b/package/gdb/gdb.mk
+@@ -134,7 +134,8 @@ GDB_CONF_OPTS = \
+ 	--with-system-zlib \
+ 	--disable-werror \
+ 	--enable-static \
+-	--without-mpfr
++	--without-mpfr \
++	--disable-source-highlight
+ 
+ ifeq ($(BR2_PACKAGE_GDB_DEBUGGER),y)
+ GDB_CONF_OPTS += \
+-- 
+2.41.0

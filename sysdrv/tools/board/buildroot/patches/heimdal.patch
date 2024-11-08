@@ -1,0 +1,10 @@
+--- a/package/heimdal/heimdal.mk
++++ b/package/heimdal/heimdal.mk
+@@ -11,6 +11,7 @@
+ HEIMDAL_INSTALL_STAGING = YES
+ # static because of -fPIC issues with e2fsprogs on x86_64 host
+ HOST_HEIMDAL_CONF_OPTS = \
++	LDFLAGS="-lcrypt -lkeyutils" \
+ 	--disable-shared \
+ 	--enable-static \
+ 	--without-openldap \

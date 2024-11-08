@@ -70,7 +70,8 @@ all: expat
 			--without-lzma \
 			--with-expat \
 			--with-libexpat-prefix=$(CURRENT_DIR)/$(PKG_NAME_EXPAT)/$(PKG_BIN) \
-			--with-zlib ;\
+			--with-zlib \
+			--disable-source-highlight ;\
 		make -j$(SYSDRV_JOBS) >/dev/null || exit -1; \
 		make install > /dev/null; \
 		test -d $(CURRENT_DIR)/$(PKG_NAME_GDB)/$(PKG_BIN)/bin && \

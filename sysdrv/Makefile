@@ -316,6 +316,10 @@ SYSDRV_RAMDISK_DIR ?= $(SYSDRV_DIR_OUT_BOARD)
 
 HCITOOL_TOOL_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/hcitool_patch
 MPV_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/mpv_patch
+LIBFFI_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches/libffi
+HEIMDAL_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches
+GDB_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches/gdb
+LXDIALOG_PATCH_PATH :=$(SYSDRV_DIR)/tools/board/buildroot/patches
 
 export SYSDRV_DIR_OUT_PC
 export SYSDRV_DIR_OUT_BOARD
@@ -607,6 +611,10 @@ buildroot_create:
 	cp ${HCITOOL_TOOL_PATH}/0002-Fix-build-errors.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/bluez5_utils/
 	cp ${HCITOOL_TOOL_PATH}/0003-fix-compat-wordexp.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/bluez5_utils/
 	cp ${MPV_PATCH_PATH}/0002-change-j1.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/mpv/
+	cp ${LIBFFI_PATCH_PATH}/0004-Forward-declare-open_temp_exec_file-764.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/libffi/
+	cp ${GDB_PATCH_PATH}/0001-disable-source-highlight.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/gdb/
+	(cd $(BUILDROOT_DIR)/$(BUILDROOT_VER) && patch -Np1 < ${HEIMDAL_PATCH_PATH}/heimdal.patch)
+	(cd $(BUILDROOT_DIR)/$(BUILDROOT_VER) && patch -Np1 < ${LXDIALOG_PATCH_PATH}/lxdialog.patch)
 
 buildroot: prepare
 	@echo -e "$(C_GREEN) ==sysdrv== build buildroot   $(C_NORMAL)"
@@ -620,6 +628,10 @@ buildroot: prepare
 		cp ${HCITOOL_TOOL_PATH}/0002-Fix-build-errors.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/bluez5_utils/ ;\
 		cp ${HCITOOL_TOOL_PATH}/0003-fix-compat-wordexp.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/bluez5_utils/ ;\
 		cp ${MPV_PATCH_PATH}/0002-change-j1.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/mpv/ ;\
+		cp ${LIBFFI_PATCH_PATH}/0004-Forward-declare-open_temp_exec_file-764.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/libffi/ ;\
+		cp ${GDB_PATCH_PATH}/0001-disable-source-highlight.patch $(BUILDROOT_DIR)/$(BUILDROOT_VER)/package/gdb/ ;\
+		(cd $(BUILDROOT_DIR)/$(BUILDROOT_VER) && patch -Np1 < ${HEIMDAL_PATCH_PATH}/heimdal.patch) ;\
+		(cd $(BUILDROOT_DIR)/$(BUILDROOT_VER) && patch -Np1 < ${LXDIALOG_PATCH_PATH}/lxdialog.patch) ;\
 	);
 
 	$(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) $(BUILDROOT_DEFCONFIG) -C $(BUILDROOT_DIR)/$(BUILDROOT_VER) 
